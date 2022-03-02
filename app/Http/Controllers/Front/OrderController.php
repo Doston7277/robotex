@@ -21,23 +21,19 @@ class OrderController extends Controller
         $datas = [];
         foreach (Cart::content() as $cart)
         {
-
-                $data ['id'] = $cart->id;
-                $data ['name'] = $cart->name;
-                $data ['model'] = $cart->options->model;
-                $data ['company'] = $cart->options->company;
-                $data ['price'] = $cart->price;
-                $datas [] = $data;
-
+            $data ['id'] = $cart->id;
+            $data ['name'] = $cart->name;
+            $data ['model'] = $cart->options->model;
+            $data ['company'] = $cart->options->company;
+            $data ['price'] = $cart->price;
+            $datas [] = $data;
         }
         if (Cart::content() != null){
-
             $order = new Order();
             $order->user_id = Auth::user()->user_id;
             $order->products = $datas;
             $order->order_text = $request->text;
             $order->save();
-
         }else{
             return back()->with('error', 'Sizning buyurtmalar qutisida mahsulot mavjud emas');
         }

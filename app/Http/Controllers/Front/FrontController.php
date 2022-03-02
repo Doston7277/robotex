@@ -12,6 +12,8 @@ class FrontController extends Controller
 {
     public function index()
     {
-        return view('front.index');
+        $categories = Category::query()->get();
+        $products = Product::query()->get();
+        return view('front.index', compact('categories', 'products'));
     }
 }

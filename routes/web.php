@@ -7,9 +7,9 @@ use App\Http\Controllers\Front\FrontController;
 
 Route::group(['middleware' => ['language']], function () {
 
-    Route::get('/lang/{lang}', [LanguageController::class, 'index']);
+    Route::get('/lang/{lang}',                      [LanguageController::class, 'index']);
     Route::get('/',                                 [FrontController::class, 'index'])->name('home');
-
+    
 
 });
 
