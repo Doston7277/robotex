@@ -173,14 +173,13 @@
                             @foreach($category->products as $product)
                                 <div class="product product-2">
                                     <figure class="product-media">
-                                        <span class="product-label label-circle label-new">New</span>
                                         @if(sizeof($product->product_image) > 1)
-                                            <a href="product.blade.php">
+                                            <a href="/product/{{ $product->product_id }}">
                                                 <img src="{{ asset($product->product_image[0]) }}" alt="Product image" class="product-image">
                                                 <img src="{{ asset($product->product_image[1]) }}" alt="Product image" class="product-image-hover">
                                             </a>
                                         @else
-                                            <a href="product.blade.php">
+                                            <a href="/product/{{ $product->product_id }}">
                                                 <img src="{{ asset($product->product_image[0]) }}" alt="Product image" class="product-image">
                                             </a>
                                         @endif
@@ -242,14 +241,13 @@
                     @foreach($category->products as $product)
                     <div class="product product-2">
                         <figure class="product-media">
-                            <span class="product-label label-circle label-new">New</span>
                             @if(sizeof($product->product_image) > 1)
-                            <a href="product.blade.php">
+                            <a href="product/{{ $product->product_id }}">
                                 <img src="{{ asset($product->product_image[0]) }}" alt="Product image" class="product-image">
                                 <img src="{{ asset($product->product_image[1]) }}" alt="Product image" class="product-image-hover">
                             </a>
                             @else
-                                <a href="product.blade.php">
+                                <a href="product/{{ $product->product_id }}">
                                     <img src="{{ asset($product->product_image[0]) }}" alt="Product image" class="product-image">
                                 </a>
                             @endif

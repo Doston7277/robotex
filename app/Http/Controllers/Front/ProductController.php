@@ -22,11 +22,13 @@ class ProductController extends Controller
 
     public function detail($product_id)
     {
+        $categories = Category::query()->with(['products'])->get();
+        $cart = Cart::content();
+        $cart_subtotal = Cart::subtotal();
         $product = Product::query()->find($product_id);
+        $products = Product::query()->where('category_id', $product->category_id)->get();
 
-        $products = Product::query()->where('category_id', $product->category_id)->limit(10)->get();
-
-        return view('front.product-detail', compact('product', 'products'));
+        return view('front.product-detail', compact('product', 'cart', 'cart_subtotal', 'categories', 'products'));
     }
 
     public function view($product_id){

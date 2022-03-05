@@ -16,6 +16,7 @@ Route::group(['middleware' => ['language']], function () {
     Route::get('/lang/{lang}',                      [LanguageController::class, 'index']);
     Route::get('/',                                 [FrontController::class, 'index'])->name('home');
     Route::get('/products',                         [ProductController::class, 'index']);
+    Route::get('/product/{product_id}',             [ProductController::class, 'detail']);
     Route::get('/blog',                             [BlogController::class, 'index']);
     Route::get('/about',                            [AboutController::class, 'index']);
     Route::get('/contact',                          [ContactController::class, 'index']);
