@@ -4,12 +4,25 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Front\FrontController;
+use App\Http\Controllers\Front\ShoppingController;
+use App\Http\Controllers\Front\CartController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\BlogController;
+use App\Http\Controllers\Front\AboutController;
+use App\Http\Controllers\Front\ContactController;
 
 Route::group(['middleware' => ['language']], function () {
 
     Route::get('/lang/{lang}',                      [LanguageController::class, 'index']);
     Route::get('/',                                 [FrontController::class, 'index'])->name('home');
-    
+    Route::get('/products',                         [ProductController::class, 'index']);
+    Route::get('/blog',                             [BlogController::class, 'index']);
+    Route::get('/about',                            [AboutController::class, 'index']);
+    Route::get('/contact',                          [ContactController::class, 'index']);
+    Route::get('/shopping-cart',                    [ShoppingController::class, 'shopping_card']);
+
+    Route::get('/cart/add/{product_id}',            [CartController::class, 'create']);
+    Route::get('/cart/delete/{rowId}',              [CartController::class, 'delete']);
 
 });
 
@@ -58,7 +71,8 @@ Route::group(['prefix' => 'admin','as'=>'admin.', 'middleware' => ['isAdmin']], 
     Route::get('/product/create',                   [AdminProduct::class, 'index_create'])->name('product-create');
     Route::post('/product/create',                  [AdminProduct::class, 'create']);
     Route::post('/product/datatable',               [AdminProduct::class, 'datatable']);
-    Route::post('/product/upload',                  [AdminProduct::class, 'upload']);
+    Route::post('/product/upload',                  [AdminProduct::class, 'uploads']);
+    Route::delete('/photo/delete',                  [AdminProduct::class, 'delete']);
     Route::get('/product/update/{product_id}',      [AdminProduct::class, 'edit']);
     Route::post('/product/update',                  [AdminProduct::class, 'update'])->name('product-update');
     Route::get('/product/delete/{product_id}',      [AdminProduct::class, 'delete']);

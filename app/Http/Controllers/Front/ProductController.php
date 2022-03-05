@@ -6,16 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subject;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($subject)
+    public function index()
     {
-        $subject = Subject::query()->where('subject_route', $subject)->first();
-        $categories = Category::query()->where('subject_id', $subject->subject_id)->get();
-        $products = Product::query()->where('subject_id', $subject->subject_id)->paginate(10);
-        return view('front.product', compact('categories','products'));
+        $categories = Category::query()->with(['products'])->get();
+        $cart = Cart::content();
+        $cart_subtotal = Cart::subtotal();
+        $products = Product::query()->get();
+        return view('front.product' , compact('categories', 'cart', 'cart_subtotal', 'products'));
     }
 
     public function detail($product_id)

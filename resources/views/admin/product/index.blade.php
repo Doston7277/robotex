@@ -21,7 +21,6 @@
                                 <table id="dataProduct" class="table table-striped table-bordered zero-configuration">
                                     <thead>
                                     <tr>
-                                        <th>Image</th>
                                         <th>Id</th>
                                         <th>Category</th>
                                         <th>Name</th>
@@ -34,7 +33,6 @@
 
                                     <tfoot>
                                     <tr>
-                                        <th>Image</th>
                                         <th>Id</th>
                                         <th>Category</th>
                                         <th>Name</th>
@@ -92,11 +90,6 @@
                                                         <div class="form-group col-md-6">
                                                             <label for="product_price">Product Price <span class="text-danger">*</span></label>
                                                             <input type="text" class="form-control" id="product_price" name="product_price" placeholder="Enter a product Price...">
-                                                        </div>
-
-                                                        <div class="form-group col-md-12">
-                                                            <label for="product_image">Product Image <span class="text-danger">*</span></label>
-                                                            <input type="file" name="product_image" id="product_image" class="form-control-file">
                                                         </div>
                                                     </div>
                                                 </form>
@@ -165,14 +158,6 @@
                     }
                 },
                 columns: [
-                    {
-                        data: "image",
-                        render: function (data, type, full, meta) {
-                            return "<img src=\"" + data + "\" width=\"100\"/>";
-                        },
-                        orderable: false,
-                        searchable: false
-                    },
                     {data: 'id', name: 'product_id'},
                     {data: 'category', name: 'category.category_name'},
                     {data: 'name', name: 'product_name'},

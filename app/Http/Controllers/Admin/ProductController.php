@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller
@@ -30,6 +31,7 @@ class ProductController extends Controller
         $product->product_company = $request->product_company;
         $product->product_price = $request->product_price;
         $product->product_description = $request->product_description;
+
         for($i = 0; $i < count($request->product_nature_value); $i++)
         {
             $da['uz'] = $request->product_nature_title['uz'][$i];
@@ -39,14 +41,20 @@ class ProductController extends Controller
             $data['value'] =  $request->product_nature_value[$i];
             $dat [] = $data;
         }
+
         $product->product_nature = $dat;
-        $product->product_image = session('product_image');
+
+        $files = [];
+        foreach ($request->product_image as $image) {
+            $fileName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images/product/'), $fileName);
+            $url = 'images/product/' . $fileName;
+            $files [] = $url;
+        }
+        $product->product_image = $files;
 
         if ($product->save()){
-            return response()->json([
-                "success" => true,
-                "message" => __('Admin.saved')
-            ]);
+            return back();
         }
     }
 
@@ -71,24 +79,11 @@ class ProductController extends Controller
         }
     }
 
-    public function upload(Request $request)
-    {
-        if ($request->hasFile('product_image')){
-            $filename = time() . '.' . $request->product_image->extension();
-            $request->product_image->move(public_path('images/product/'), $filename);
-            session(['product_image' => 'images/product/'.$filename]);
-        }
-    }
-
     public function datatable(Request $request)
     {
         $model = Product::query()->with(['category']);
         return Datatables::eloquent($model)
             ->addIndexColumn()
-            ->addColumn('image', function ($product){
-                $url = asset($product->product_image);
-                return $url;
-            })
             ->addColumn('id', function ($product){
                 return $product->product_id;
             })

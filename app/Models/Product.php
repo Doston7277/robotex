@@ -17,21 +17,18 @@ class Product extends Model
         'product_price',
         'product_nature',
         'product_description',
-        'product_images',
+        'product_image',
     ];
 
     protected $casts = [
         'product_name'=>'array',
         'product_description'=>'array',
-        'product_nature'=>'array'
+        'product_nature'=>'array',
+        'product_image'=>'array'
     ];
 
     public function category()
     {
         return $this->hasOne(Category::class,'category_id','category_id');
-    }
-    public function categories()
-    {
-        return $this->hasMany(Category::class,'category_id','category_id');
     }
 }

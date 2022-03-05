@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Create Product</h4>
                             <div class="basic-form mt-4">
-                                <form id="product-data" class="form-valide">
+                                <form action="/admin/product/create" method="post" class="form-valide" enctype='multipart/form-data'>
                                     @csrf
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="product_image">Product Image <span class="text-danger">*</span></label>
-                                            <input type="file" name="product_image" id="product_image" class="form-control-file">
+                                            <input type="file" multiple name="product_image[]" class="form-control-file">
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="product_description_uz">Product Description Uz<span class="text-danger">*</span></label>
@@ -96,7 +96,7 @@
                                         </div>
 
                                     </div>
-                                    <button type="button" id="submit" class="btn mb-1 btn-outline-success">Create</button>
+                                    <button type="submit" class="btn mb-1 btn-outline-success">Create</button>
                                 </form>
                             </div>
                         </div>
@@ -109,29 +109,31 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset( 'admin/plugins/jquery/jquery.min.js' ) }}"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-    <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
-    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+{{--    <script src="{{ asset( 'admin/plugins/jquery/jquery.min.js' ) }}"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>--}}
+{{--    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>--}}
     <script>
-        FilePond.registerPlugin(
-            FilePondPluginImagePreview,
-            FilePondPluginImageResize,
-            FilePondPluginImageTransform
-        );
-        const inputElement = document.querySelector('input[id="product_image"]');
-        const pond = FilePond.create(inputElement, {
-            labelIdle: `<i class="fa fa-plus-circle"> Upload Image</i>`,
-        });
-        FilePond.setOptions({
-            server: {
-                url: '/admin/product/upload',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-            }
-        });
+        {{--FilePond.registerPlugin(FilePondPluginImagePreview);--}}
+        {{--const inputElement = document.querySelector('input[id="product_image"]');--}}
+        {{--const pond = FilePond.create( inputElement );--}}
+
+        {{--FilePond.setOptions({--}}
+        {{--    server:{--}}
+        {{--        url: '/admin/product',--}}
+        {{--        process: '/upload',--}}
+        {{--        revert: '/delete',--}}
+        {{--        headers: {--}}
+        {{--            'X-CSRF-TOKEN': '{{ csrf_token() }}'--}}
+        {{--        }--}}
+        {{--    }--}}
+
+        {{--});--}}
+
         window.onload = (function() {
             $(".select2").select2({
                 multiple: true,

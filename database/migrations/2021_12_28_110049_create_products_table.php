@@ -12,12 +12,12 @@ class CreateProductsTable extends Migration
             $table->increments('product_id');
             $table->string('category_id');
             $table->string('product_name');
-            $table->string('product_model');
+            $table->string('product_model')->nullable();
             $table->string('product_company')->nullable();
             $table->string('product_price');
-            $table->text('product_description');
-            $table->text('product_nature');
-            $table->string('product_image');
+            $table->text('product_description')->nullable();
+            $table->text('product_nature')->nullable();
+            $table->text('product_image')->nullable();
             $table->timestamps();
         });
     }

@@ -15,4 +15,8 @@ class Category extends Model
     protected $casts = [
         'category_name'=>'array'
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class,'category_id','category_id');
+    }
 }
